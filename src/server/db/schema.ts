@@ -1,34 +1,29 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
 import { sql } from "drizzle-orm";
 import {
-  bigint,
-  index,
-  mysqlTableCreator,
+  mysqlTable,
+  serial,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
-export const createTable = mysqlTableCreator((name) => `core-engineering-platform_${name}`);
 
-export const posts = createTable(
-  "post",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
-);
+// Table schema for the users
+export const users = mysqlTable("user", {
+  id: serial("id").primaryKey().autoincrement(),
+  name: varchar("name", { length: 256 }).notNull(),
+  email: varchar("email", { length: 256 }).notNull().unique(),
+  password: varchar("password", { length: 256 }).notNull(),
+  role: varchar("role", { length: 50 }).notNull().default("user"),
+  joiningDate: timestamp("joining_date").default(sql`CURRENT_TIMESTAMP`),
+  educational: varchar("educational", { length: 256 }),
+  phoneNumber: varchar("phone_number", { length: 20 }),
+  address: varchar("address", { length: 256 }),
+  workId: varchar("work_id", { length: 256 }),
+  graduationYear: varchar("graduation_year", { length: 4 }),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at").onUpdateNow(),
+});
+
+export type User = typeof users.$inferSelect
