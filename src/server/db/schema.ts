@@ -8,7 +8,7 @@ import {
 
 
 // Table schema for the users
-export const users = mysqlTable("user", {
+export const users = mysqlTable("users", {
   id: serial("id").primaryKey().autoincrement(),
   name: varchar("name", { length: 256 }).notNull(),
   email: varchar("email", { length: 256 }).notNull().unique(),

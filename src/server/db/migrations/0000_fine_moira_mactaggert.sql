@@ -1,4 +1,4 @@
-CREATE TABLE `user` (
+CREATE TABLE `users` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`name` varchar(256) NOT NULL,
 	`email` varchar(256) NOT NULL,
@@ -12,6 +12,6 @@ CREATE TABLE `user` (
 	`graduation_year` varchar(4),
 	`created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`updated_at` timestamp ON UPDATE CURRENT_TIMESTAMP,
-	CONSTRAINT `user_id` PRIMARY KEY(`id`),
-	CONSTRAINT `user_email_unique` UNIQUE(`email`)
+	CONSTRAINT `users_id` PRIMARY KEY(`id`),
+	CONSTRAINT `users_email_unique` UNIQUE(`email`)
 );
