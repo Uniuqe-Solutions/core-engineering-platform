@@ -1,0 +1,11 @@
+stages:
+  - lint
+
+eslint_job:
+  stage: lint
+  script:
+    - npm ci # or yarn install
+    - npm run lint # or yarn lint
+  only:
+    - merge_requests
+    - branches
